@@ -1,0 +1,22 @@
+:root{--bg:#f8fafc;--panel:#fff;--panel-2:#f1f5f9;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#2563eb;--green-1:#bbf7d0;--green-2:#4ade80;--green-3:#16a34a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}
+.app-shell{min-height:100vh;padding:16px}.container{max-width:1280px;margin:0 auto;display:grid;gap:16px}
+.hero,.panel,.training-card,.exercise-card,.history-card,.stat-card{background:var(--panel);border:1px solid var(--border);border-radius:24px;box-shadow:0 4px 18px rgba(15,23,42,.05)}
+.hero,.panel{padding:20px}.hero{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.hero h1{margin:0 0 8px;font-size:clamp(1.9rem,3vw,2.6rem)}
+.hero p,.panel-header p,.small-text,.exercise-meta,.exercise-substitution,.empty-state,.calendar-label{color:var(--muted)}
+.top-grid,.history-grid,.training-grid,.stats-grid,.exercise-list,.history-list{display:grid;gap:12px}
+.training-card,.stat-card,.exercise-card,.history-card{padding:16px}.training-card{display:grid;gap:10px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-grid.single-column{grid-template-columns:1fr}
+.stat-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.stat-value{margin-top:6px;font-size:1.15rem;font-weight:700}.stat-value.muted{color:var(--muted)}
+.panel-header{margin-bottom:16px}.panel-header-row{display:flex;justify-content:space-between;gap:16px;align-items:center}.panel-header h2{margin:0 0 6px;font-size:1.35rem}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tab,.btn{border:0;border-radius:16px;padding:12px 16px;font-weight:600;cursor:pointer;transition:.2s ease}.tab{background:#e2e8f0;color:#334155}.tab.active,.btn{background:var(--primary);color:white}.btn-secondary{background:#e2e8f0;color:#0f172a}.tab:hover,.btn:hover{filter:brightness(.98)}
+.field-group,.checkbox-wrap{display:grid;gap:6px}.field-label{font-size:.85rem;font-weight:600}.input,.select{width:100%;border:1px solid var(--border);background:#fff;border-radius:14px;padding:12px 14px}
+.exercise-card{display:grid;gap:14px}.exercise-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.exercise-top h3,.history-title{margin:0;font-size:1.08rem}
+.badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:999px;background:var(--panel-2);border:1px solid var(--border);font-size:.78rem;font-weight:600}
+.checkbox-wrap{grid-template-columns:auto 1fr;align-items:center}.action-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.calendar-day{display:grid;justify-items:center;gap:4px}.calendar-cell,.legend-box{border-radius:8px;border:1px solid var(--border)}.calendar-cell{width:100%;aspect-ratio:1/1}.calendar-label{font-size:.72rem}
+.level-0{background:#e2e8f0}.level-1{background:var(--green-1)}.level-2{background:var(--green-2)}.level-3{background:var(--green-3)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;color:var(--muted);font-size:.85rem}.legend-box{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:middle}
+.history-top,.history-exercise{display:flex;justify-content:space-between;gap:12px;align-items:center}.history-exercises{display:grid;gap:8px;margin-top:12px}.history-exercise{background:var(--panel-2);border-radius:14px;padding:12px;font-size:.92rem}.empty-state{padding:18px;text-align:center;border:1px dashed var(--border);border-radius:16px}
+.hidden{display:none}
+@media(min-width:768px){.app-shell{padding:24px}.top-grid{grid-template-columns:1.6fr 1fr}.history-grid{grid-template-columns:1.4fr .8fr}.training-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.exercise-card{grid-template-columns:1.8fr .8fr .7fr .7fr;align-items:center}.calendar-grid{grid-template-columns:repeat(14,minmax(0,1fr))}}
+@media(max-width:767px){.hero,.panel-header-row,.history-top{flex-direction:column;align-items:stretch}.stats-grid{grid-template-columns:1fr}}

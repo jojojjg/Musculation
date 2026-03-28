@@ -1,8 +1,10 @@
-# Workout Tracker
+# Workout Tracker Static Site
 
-## Lancer en local
-npm install
-npm run dev
+## Utilisation locale
+Ouvre simplement `index.html` dans ton navigateur.
 
-## Build
-npm run build
+## GitHub Pages
+Upload directement ces fichiers dans un dépôt GitHub puis active GitHub Pages.
+
+## Stockage
+Les données sont enregistrées dans le navigateur avec `localStorage`.

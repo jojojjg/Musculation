@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Tracker</title>
+  <meta name="description" content="Tracker d'entraînement responsive, 100% statique." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="container">
+      <header class="hero">
+        <div>
+          <h1>Workout Tracker</h1>
+          <p>Site web responsive 100% statique, ouvrable en local et publiable directement sur GitHub Pages.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="resetBtn" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+      </header>
+
+      <section class="top-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Choix des entraînements</h2>
+            <p>Tu peux renommer les 3 entraînements et sélectionner celui que tu veux afficher.</p>
+          </div>
+          <div class="training-grid">
+            <div class="training-card">
+              <label class="field-label" for="training1Name">Nom de l'entraînement 1</label>
+              <input id="training1Name" class="input" />
+              <div class="small-text">Base : Lundi</div>
+              <button class="btn training-select" data-training="training1">Sélectionner</button>
+            </div>
+            <div class="training-card">
+              <label class="field-label" for="training2Name">Nom de l'entraînement 2</label>
+              <input id="training2Name" class="input" />
+              <div class="small-text">Base : Mercredi</div>
+              <button class="btn btn-secondary training-select" data-training="training2">Sélectionner</button>
+            </div>
+            <div class="training-card">
+              <label class="field-label" for="training3Name">Nom de l'entraînement 3</label>
+              <input id="training3Name" class="input" />
+              <div class="small-text">Base : Vendredi</div>
+              <button class="btn btn-secondary training-select" data-training="training3">Sélectionner</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Dashboard</h2>
+            <p>Vue rapide sur ta régularité.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Séances totales</div><div id="statTotalSessions" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Ce mois-ci</div><div id="statMonthSessions" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Dernière séance</div><div id="statLastSession" class="stat-value muted">Aucune</div></div>
+            <div class="stat-card"><div class="stat-label">Exo le plus loggé</div><div id="statBestExercise" class="stat-value muted">Aucune donnée</div></div>
+          </div>
+        </div>
+      </section>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="workout">Entraînement</button>
+        <button class="tab" data-tab="calendar">Calendrier</button>
+        <button class="tab" data-tab="history">Historique</button>
+      </nav>
+
+      <section id="workoutTab" class="panel tab-panel">
+        <div class="panel-header panel-header-row">
+          <div>
+            <h2 id="selectedTrainingTitle">Entraînement 1</h2>
+            <p>Entraînement complet affiché avec poids, reps et substitutions.</p>
+          </div>
+          <select id="trainingSelect" class="select">
+            <option value="training1">Entraînement 1</option>
+            <option value="training2">Entraînement 2</option>
+            <option value="training3">Entraînement 3</option>
+          </select>
+        </div>
+        <div id="exerciseList" class="exercise-list"></div>
+        <div class="action-row">
+          <button id="saveSessionBtn" class="btn">Enregistrer la séance</button>
+        </div>
+      </section>
+
+      <section id="calendarTab" class="panel tab-panel hidden">
+        <div class="panel-header">
+          <h2>Calendrier d'entraînement</h2>
+          <p>Les cases colorées indiquent les jours où tu t'es entraîné.</p>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+        <div class="legend">
+          <div><span class="legend-box level-0"></span> 0</div>
+          <div><span class="legend-box level-1"></span> 1</div>
+          <div><span class="legend-box level-2"></span> 2</div>
+          <div><span class="legend-box level-3"></span> 3+</div>
+        </div>
+      </section>
+
+      <section id="historyTab" class="history-grid tab-panel hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Historique des séances</h2>
+            <p>Toutes les séances enregistrées dans le navigateur.</p>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Résumé rapide</h2>
+            <p>Vue condensée.</p>
+          </div>
+          <div class="stats-grid single-column">
+            <div class="stat-card"><div class="stat-label">Séance sélectionnée</div><div id="summaryTraining" class="stat-value">Entraînement 1</div></div>
+            <div class="stat-card"><div class="stat-label">Nombre d'exercices</div><div id="summaryExerciseCount" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Jours entraînés</div><div id="summaryDays" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Aujourd'hui</div><div id="summaryToday" class="stat-value"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
