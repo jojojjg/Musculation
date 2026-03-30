@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Tracker</title>
+  <meta name="description" content="Tracker d'entraînement responsive, 100% statique." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="container">
+      <header class="hero">
+        <div>
+          <h1>Workout Tracker</h1>
+          <p>Site web pour la musculation</p>
+        </div>
+        <div class="hero-actions hero-actions-wrap">
+          <select id="themeSelect" class="select theme-select">
+            <option value="light">Thème clair</option>
+            <option value="dark">Thème sombre</option>
+          </select>
+          <button id="resetBtn" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+      </header>
+
+      <section class="top-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Choix des entraînements</h2>
+          </div>
+          <div class="training-picker simple-picker">
+            <div class="field-group">
+              <label class="field-label" for="trainingManagerSelect">Choisir l'entraînement</label>
+              <select id="trainingManagerSelect" class="select"></select>
+            </div>
+            <button id="selectCurrentTrainingBtn" class="btn">Utiliser cet entraînement</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Dashboard</h2>
+            <p>Vue rapide sur ta régularité.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Séances totales</div><div id="statTotalSessions" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Ce mois-ci</div><div id="statMonthSessions" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Dernière séance</div><div id="statLastSession" class="stat-value muted">Aucune</div></div>
+            <div class="stat-card"><div class="stat-label">Exo le plus loggé</div><div id="statBestExercise" class="stat-value muted">Aucune donnée</div></div>
+          </div>
+        </div>
+      </section>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="workout">Entraînement</button>
+        <button class="tab" data-tab="calendar">Calendrier</button>
+        <button class="tab" data-tab="history">Historique</button>
+      </nav>
+
+      <section id="workoutTab" class="panel tab-panel">
+        <div class="panel-header panel-header-row">
+          <div>
+            <h2 id="selectedTrainingTitle">Entraînement 1</h2>
+            <p>Programme structuré par blocs A / B / Fin, avec tours réels et suivi par tour.</p>
+          </div>
+          <select id="trainingSelect" class="select">
+            <option value="training1">Entraînement 1</option>
+            <option value="training2">Entraînement 2</option>
+            <option value="training3">Entraînement 3</option>
+              <option value="training4">Course à pieds</option>
+              <option value="training5">Vélo</option>
+          </select>
+        </div>
+
+        <div class="timer-panel">
+          <div>
+            <div class="timer-label">Chrono repos</div>
+            <div id="timerDisplay" class="timer-display">01:00</div>
+          </div>
+          <div class="timer-controls">
+            <button class="btn" data-timer="45">45 s</button>
+            <button class="btn" data-timer="60">60 s</button>
+            <button class="btn" data-timer="75">75 s</button>
+            <button id="startTimerBtn" class="btn">Démarrer</button>
+            <button id="pauseTimerBtn" class="btn btn-secondary">Pause</button>
+            <button id="resetTimerBtn" class="btn btn-secondary">Reset</button>
+          </div>
+        </div>
+
+        <div id="exerciseList" class="exercise-list"></div>
+        <div class="action-row">
+          <button id="saveSessionBtn" class="btn">Enregistrer la séance</button>
+        </div>
+      </section>
+
+      <section id="calendarTab" class="panel tab-panel hidden">
+        <div class="panel-header">
+          <h2>Calendrier d'entraînement</h2>
+          <p>Les cases colorées indiquent les jours où tu t'es entraîné.</p>
+        </div>
+        <div class="calendar-toolbar">
+          <button id="prevMonthBtn" class="btn btn-secondary">← Mois précédent</button>
+          <div id="calendarMonthTitle" class="calendar-month-title"></div>
+          <button id="nextMonthBtn" class="btn btn-secondary">Mois suivant →</button>
+        </div>
+        <div id="calendarWeekdays" class="calendar-weekdays"></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+        <div id="calendarDayDetails" class="calendar-day-details hidden">
+          <div class="panel-header">
+            <h2 id="calendarDayTitle">Séances du jour</h2>
+            <p>Clique sur une date pour voir et supprimer les séances enregistrées ce jour-là.</p>
+          </div>
+          <div id="calendarDaySessions" class="history-list"></div>
+        </div>
+        <div class="legend">
+          <div><span class="legend-box level-0"></span> 0</div>
+          <div><span class="legend-box level-1"></span> 1</div>
+          <div><span class="legend-box level-2"></span> 2</div>
+          <div><span class="legend-box level-3"></span> 3+</div>
+        </div>
+      </section>
+
+      <section id="historyTab" class="history-grid tab-panel hidden">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Historique des séances</h2>
+            <p>Toutes les séances enregistrées dans le navigateur.</p>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Résumé rapide</h2>
+            <p>Vue condensée.</p>
+          </div>
+          <div class="stats-grid single-column">
+            <div class="stat-card"><div class="stat-label">Séance sélectionnée</div><div id="summaryTraining" class="stat-value">Entraînement 1</div></div>
+            <div class="stat-card"><div class="stat-label">Nombre d'exercices</div><div id="summaryExerciseCount" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Jours entraînés</div><div id="summaryDays" class="stat-value">0</div></div>
+            <div class="stat-card"><div class="stat-label">Aujourd'hui</div><div id="summaryToday" class="stat-value"></div></div>
+          </div>
+          <div class="chart-panel">
+            <div class="panel-header">
+              <h2>Progression par exercice</h2>
+              <p>Choisis un exercice pour voir l'évolution de ta charge utilisée.</p>
+            </div>
+            <select id="chartExerciseSelect" class="select"></select>
+            <canvas id="progressChart" height="220"></canvas>
+          </div>
+        </div>
+      </section>
+      <section id="builderTab" class="panel tab-panel hidden" style="display:none !important">
+        <div class="panel-header">
+          <h2>Bibliothèque d'exercices et composition</h2>
+          <p>Ajoute des exercices perso, du cardio, puis insère-les dans n'importe quel entraînement.</p>
+        </div>
+
+        <div class="builder-grid">
+          <div class="builder-card">
+            <div class="panel-header">
+              <h3>Ajouter à la bibliothèque</h3>
+            </div>
+            <div class="builder-form">
+              <div class="field-group"><label class="field-label" for="libName">Nom</label><input id="libName" class="input" /></div>
+              <div class="field-group"><label class="field-label" for="libMuscle">Muscle / zone</label><input id="libMuscle" class="input" /></div>
+              <div class="field-group"><label class="field-label" for="libSubstitution">Substitution</label><input id="libSubstitution" class="input" /></div>
+              <div class="field-group"><label class="field-label" for="libReps">Reps / durée</label><input id="libReps" class="input" /></div>
+              <div class="field-group"><label class="field-label" for="libWeight">Poids / distance</label><input id="libWeight" class="input" /></div>
+              <div class="field-group"><label class="field-label" for="libType">Type</label>
+                <select id="libType" class="select">
+                  <option value="strength">Musculation</option>
+                  <option value="cardio">Cardio</option>
+                </select>
+              </div>
+              <button id="addLibraryExerciseBtn" class="btn">Ajouter à la bibliothèque</button>
+            </div>
+          </div>
+
+          <div class="builder-card">
+            <div class="panel-header">
+              <h3>Ajouter à un entraînement</h3>
+            </div>
+            <div class="builder-form">
+              <div class="field-group"><label class="field-label" for="builderTrainingSelect">Entraînement cible</label><select id="builderTrainingSelect" class="select"></select></div>
+              <div class="field-group"><label class="field-label" for="builderBlockSelect">Bloc</label><select id="builderBlockSelect" class="select"><option value="A">Bloc A</option><option value="B">Bloc B</option><option value="FIN">Finition</option></select></div>
+              <div class="field-group"><label class="field-label" for="builderExerciseSelect">Exercice bibliothèque</label><select id="builderExerciseSelect" class="select"></select></div>
+              <button id="addExerciseToTrainingBtn" class="btn">Ajouter à l'entraînement</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="builder-card">
+          <div class="panel-header">
+            <h3>Créer un nouvel entraînement</h3>
+            <p>Exemple : un entraînement cardio avec un seul exercice comme Course.</p>
+          </div>
+          <div class="builder-form">
+            <div class="field-group"><label class="field-label" for="newTrainingName">Nom du nouvel entraînement</label><input id="newTrainingName" class="input" placeholder="Ex : Cardio" /></div>
+            <div class="field-group"><label class="field-label" for="newTrainingBlockSelect">Bloc du 1er exercice</label><select id="newTrainingBlockSelect" class="select"><option value="A">Bloc A</option><option value="B">Bloc B</option><option value="FIN">Finition</option></select></div>
+            <div class="field-group"><label class="field-label" for="newTrainingExerciseSelect">Premier exercice</label><select id="newTrainingExerciseSelect" class="select"></select></div>
+            <button id="createNewTrainingBtn" class="btn">Créer le nouvel entraînement</button>
+          </div>
+        </div>
+
+        <div class="builder-card">
+          <div class="panel-header">
+            <h3>Liste de tous les exercices</h3>
+          </div>
+          <div id="libraryList" class="history-list"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
